@@ -1,0 +1,172 @@
+<?php
+global $user;
+global $posts;
+global $follow_suggestion; 
+?>
+<div class="container col-9 rounded-0 d-flex justify-content-between">
+    <div class="col-8">
+        <?php
+        showError('post_image');
+        if (count($posts) < 1) {
+            echo '<p class="text-muted bg-white text-center rounded border p-2">Follow some people you know, watch their posts, or post something you like to share with <b>Sucii</b>. Explore <b>Sucii</b> & Enjoy!</p>';
+        } else {
+            foreach ($posts as $post) {
+                $count_likes = countLikes($post['id']);
+                ?>
+        <div class="card mt-4">
+            <div class="card-title d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center p-2">
+                    <img src="./assets/images/profile/<?= $post['profile_pic'] ?>"
+                        style="height:30px;width:30px;aspect-ratio:1/1;object-fit:cover;" alt=""
+                        class="rounded-circle border">
+                    <span class="ms-1">
+                        <a href="?user=<?= $post['username'] ?>" class="text-decoration-none text-dark">
+                            <?= $post['first_name'] ?>
+                            <?= $post['last_name'] ?>
+                        </a>
+                    </span>
+                </div>
+                <div class="p-2">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+            </div>
+            <?php if ($post['post_des']) { ?>
+            <div class="card-body">
+                <?= $post['post_des'] ?>
+            </div>
+            <?php } ?>
+            <img src="./assets/images/posts/<?= $post['post_image'] ?>" class="" alt="...">
+            <h4 style="font-size: x-larger" class="p-2 border-bottom">
+                <i class="bi <?= checkLikeStatus($post['id']) ? 'bi-heart-fill text-danger unlike_btn' : 'bi-heart like_btn' ?>"
+                    data-post-id='<?= $post[' id'] ?>'></i>
+                &nbsp;&nbsp;<i class="bi bi-chat-left"></i>
+            </h4>
+            <div class="p-2">
+                <span style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#likesModal<?= $post['id'] ?>">
+                    <?= count($count_likes) ?>&nbsp; Likes
+                </span>
+            </div>
+            <div class="input-group p-2 border-top">
+                <input type="text" class="form-control rounded-0 border-0" placeholder="Say something..."
+                    aria-label="Comment" aria-describedby="button-addon2">
+                <button class="btn btn-outline-primary rounded-0 border-0" type="button"
+                    id="button-addon2">Post</button>
+            </div>
+        </div>
+
+        <!-- Likes Modal for each post -->
+        <div class="modal fade" id="likesModal<?= $post['id'] ?>" tabindex="-1"
+            aria-labelledby="likesModalLabel<?= $post['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="likesModalLabel<?= $post['id'] ?>">Likes</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?php if (!empty($count_likes)): ?>
+                        <?php foreach ($count_likes as $fuser): ?>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-center p-2">
+                                <div>
+                                    <img src="./assets/images/profile/<?= htmlspecialchars($fuser['profile_pic'] ?? 'default.png') ?>"
+                                        alt="Profile Picture"
+                                        style="height:40px;width:40px;object-fit:cover;aspect-ratio:1/1;"
+                                        class="rounded-circle border">
+                                </div>
+                                <div>&nbsp;&nbsp;</div>
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 style="margin: 0px;font-size: small;">
+                                        <a href="?user=<?= htmlspecialchars($fuser['username'] ?? 'unknown') ?>"
+                                            class="text-decoration-none text-dark">
+                                            <?= htmlspecialchars($fuser['first_name'] ?? 'Unknown') ?>
+                                            <?= htmlspecialchars($fuser['last_name'] ?? '') ?>
+                                        </a>
+                                    </h6>
+                                    <p style="margin:0px;font-size:small" class="text-muted">
+                                        <?= htmlspecialchars($fuser['username'] ?? 'unknown') ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <?php if ($_SESSION['userdata']['id'] !== $fuser['id']): ?>
+                                <?php if (checkFollowStatus($fuser['id'])): ?>
+                                <button class="btn btn-sm btn-danger unfollowbtn"
+                                    data-user-id="<?= htmlspecialchars($fuser['id']) ?>">Unfollow</button>
+                                <?php else: ?>
+                                <button class="btn btn-sm btn-primary followbtn"
+                                    data-user-id="<?= htmlspecialchars($fuser['id']) ?>">Follow</button>
+                                <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                        <p>No likes to display.</p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+            }
+        }
+        ?>
+    </div>
+    <!-- Sidebar Section for Follow Suggestions (if any) -->
+    <!-- ... -->
+    <div class="col-4 mt-4 p-3">
+        <div class="d-flex align-items-center p-2">
+            <div>
+                <img src="./assets/images/profile/<?= $user['profile_pic']?>" alt=""
+                    style="width:60px;height:60px;aspect-ratio:1/1;object-fit:cover;" class="rounded-circle border">
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;</div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h6 style="margin: 0px;"><a href="?user=<?= $user['username']?>" class="text-decoration-none text-dark">
+                        <?= $user['first_name']?>
+                        <?= $user['last_name']?>
+                    </a></h6>
+                <p style="margin:0px;" class="text-muted">
+                    <?= $user['username']?>
+                </p>
+            </div>
+        </div>
+        <div>
+            <h6 class="text-muted p-2">You Can Follow Them</h6>
+
+            <?php foreach($follow_suggestion as $suggest_user): ?>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center p-2">
+                    <div><img src="./assets/images/profile/<?= $suggest_user['profile_pic'] ?>" alt=""
+                            style="height:40px;width:40px;object-fit:cover;aspect-ratio:1/1;"
+                            class="rounded-circle border"></div>
+                    <div>&nbsp;&nbsp;</div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 style="margin: 0px;font-size: small;"><a href="?user=<?= $suggest_user['username']?>"
+                                class="text-decoration-none text-dark">
+                                <?= $suggest_user['first_name'] ?>
+                                <?= $suggest_user['last_name'] ?>
+                            </a></h6>
+                        <p style="margin:0px;font-size:small" class="text-muted">
+                            <?= $suggest_user['username'] ?>
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-primary followbtn"
+                        data-user-id="<?= $suggest_user['id'] ?>">Follow</button>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+            <?php if(count($follow_suggestion) < 1) {
+                echo '<p class="text-muted bg-white text-center rounded border p-2">Soon you will have some accounts to follow.</p>';
+            } ?>
+        </div>
+    </div>
+
+</div>
