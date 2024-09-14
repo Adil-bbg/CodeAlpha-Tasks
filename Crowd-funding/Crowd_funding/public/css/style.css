@@ -1,0 +1,344 @@
+header{
+    height: 95vh;
+    margin: 5px auto;
+    width: 97vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px 20px;
+}
+
+
+/* Parent Container Styling */
+.parent-services-container {
+    width: 100%;
+    /* background-color: #1a1717; */
+    background-color: white;
+    padding: 50px 0;
+}
+
+/* Services Container Styling */
+.services-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 20px;
+    text-align: center;
+    padding: 0 15px;
+}
+
+/* Individual Service Box Styling */
+.services-content {
+    width: 30%;
+    /* background-color: #2a2929; */
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.services-content:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Styling */
+.service-icon {
+    height: 80px;
+    width: 80px;
+    background-color: rgba(227, 255, 199, 0.479);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.service-icon i {
+    font-size: 30px;
+    color: lawngreen;
+}
+
+/* Heading Styling */
+.services-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+/* Paragraph Styling */
+.services-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: black;
+}
+
+/* Link Styling */
+.services-content a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: lawngreen;
+    transition: color 0.3s ease-in-out;
+}
+
+.services-content a:hover {
+    color: #ff6f61;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .services-content {
+        width: 45%;
+    }
+}
+
+@media (max-width: 576px) {
+    .services-content {
+        width: 100%;
+    }
+
+    .services-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .services-content p {
+        font-size: 0.9rem;
+    }
+
+    .services-content a {
+        font-size: 0.9rem;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Container styling */
+.container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+    background-color: #f5f5f5;
+}
+
+/* Image styling */
+.mySlides img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    transition: opacity 0.5s ease;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+}
+
+/* Align buttons centrally within the image container */
+.container .prev,
+.container .next {
+    overflow: hidden;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+/* On hover, add a background color with a little bit of transparency */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Number text */
+.numbertext {
+    color: #333;
+    font-size: 14px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0 0 0 5px;
+}
+
+/* Thumbnail container */
+.thumbnail-container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Thumbnail images */
+.thumbnail {
+    flex: 1;
+    max-width: 33%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: white;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border: 2px solid transparent;
+}
+
+/* Hover effect for thumbnails */
+.thumbnail:hover {
+    transform: scale(1.05);
+    border-color: aquamarine;
+}
+
+/* Active thumbnail */
+.active,
+.demo:hover {
+    opacity: 1;
+    border-color: aquamarine;
+}
+
+/* Typography for product text */
+.product-text h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: whitesmoke;
+}
+
+.product-text span {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 5px 0px;
+    color: whitesmoke;
+}
+
+.product-text .rating {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #888;
+}
+
+.product-text .rating .fa-star {
+    color: #f1c40f;
+}
+
+.product-text .price h3 {
+    font-size: 22px;
+    margin: 5px 0px;
+    color: #e74c3c;
+}
+
+.product-text h5 {
+    font-size: 18px;
+    color: whitesmoke;
+    margin: 7px 0px;
+}
+
+.product-text h3 {
+    font-size: 22px;
+    margin: 7px 0px;
+    color: whitesmoke;
+}
+
+.product-text p {
+    font-size: 16px;
+    margin: 5px 0px;
+    color: whitesmoke;
+}
+
+.product-text ul li {
+    font-size: 14px;
+}
+
+.product-text .buy-btn .btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.product-text .buy-btn .btn:hover {
+    background-color: #218838;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+    .prev,
+    .next {
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    .thumbnail {
+        max-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .prev,
+    .next {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .thumbnail {
+        max-width: 60px;
+    }
+}
+.fund-details{
+    display: flex;
+    justify-content: space-between;
+}
+.fund-details ul{
+    gap: 15px;
+    list-style: none;
+}
